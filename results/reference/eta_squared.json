@@ -1,0 +1,16 @@
+{
+  "all": {
+    "mmsi": 0.3295,
+    "size_class": 0.0849,
+    "subtype": 0.0185,
+    "category": 0.0069
+  },
+  "short_haul_excluded": {
+    "mmsi": 0.3409,
+    "size_class": 0.0838,
+    "subtype": 0.0198,
+    "category": 0.0062
+  },
+  "n_trajectories": 3018,
+  "n_vessels": 195
+}

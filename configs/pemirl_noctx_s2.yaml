@@ -1,0 +1,10 @@
+# Per-seed variant of pemirl_noctx.yaml (= AIRL, context-free) whose ONLY
+# change is a seeded reward-transfer output dir, so multi-seed AIRL transfer
+# runs never clobber each other or the ctx PEMIRL arm. Used by 08 only.
+base: configs/pemirl.yaml
+algo: PEMIRL_NOCTX
+pemirl:
+  context_dim: 0
+  ckpt_dir: runs/pemirl_noctx/
+reward_transfer:
+  ckpt_dir: runs/ppo_on_noctx_s2/

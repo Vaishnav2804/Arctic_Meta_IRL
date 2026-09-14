@@ -1,0 +1,42 @@
+{
+  "test": {
+    "legacy_k_curve": {
+      "1": {
+        "n_vessels": 41,
+        "n_decisions": 66568,
+        "ll_per_decision": -1.655318851554613,
+        "macro_ll_per_decision": -1.647569349553343,
+        "mce_ll_per_decision": -1.7524096957939235,
+        "mce_macro_ll_per_decision": -1.8362025977952778,
+        "wins_vs_mce": 22
+      },
+      "3": {
+        "n_vessels": 41,
+        "n_decisions": 62127,
+        "ll_per_decision": -1.654743552244404,
+        "macro_ll_per_decision": -1.6566832931701656,
+        "mce_ll_per_decision": -1.7554818491619661,
+        "mce_macro_ll_per_decision": -1.8417977800399274,
+        "wins_vs_mce": 23
+      },
+      "5": {
+        "n_vessels": 41,
+        "n_decisions": 59121,
+        "ll_per_decision": -1.6557314254073696,
+        "macro_ll_per_decision": -1.64611502101093,
+        "mce_ll_per_decision": -1.7560770705594941,
+        "mce_macro_ll_per_decision": -1.7976672036948755,
+        "wins_vs_mce": 24
+      },
+      "10": {
+        "n_vessels": 41,
+        "n_decisions": 52392,
+        "ll_per_decision": -1.6561585194756192,
+        "macro_ll_per_decision": -1.6242536563155379,
+        "mce_ll_per_decision": -1.7522971078545841,
+        "mce_macro_ll_per_decision": -1.773397523879135,
+        "wins_vs_mce": 25
+      }
+    }
+  }
+}

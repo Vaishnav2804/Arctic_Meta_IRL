@@ -1,0 +1,13 @@
+base: configs/default.yaml
+
+algo: MCE_IRL
+mce_irl:
+  reward: linear            # r(s) = theta . phi(s)
+  lr: 0.05
+  l2: 1.0e-4
+  n_iters: 200
+  vi_temperature: 1.0       # soft value iteration temperature
+  vi_tol: 1.0e-5
+  vi_max_sweeps: 400
+  group_by_goal: true       # amortize soft-VI across episodes sharing a goal
+  ckpt: runs/mce_irl/theta.npz

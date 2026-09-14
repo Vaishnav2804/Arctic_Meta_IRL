@@ -1,0 +1,35 @@
+# =============================================================================
+# BASELINE: GCL — Guided Cost Learning (Finn et al. 2016). Deep cost c(s,a)
+# trained by importance-sampled MaxEnt IRL (fusion distribution: rollouts +
+# demos, weighted 1/q under the current policy); policy improved on r = -c by
+# the same action-masked PPO. Ladder position: deep reward + sampled
+# partition WITHOUT the adversarial discriminator formulation (AIRL's direct
+# predecessor).
+# =============================================================================
+base: configs/default.yaml
+
+algo: GCL
+gcl:
+  # ---- cost network (capacity == AIRL's f) ----------------------------------
+  cost_hidden: [256, 256]
+  optimizer_lr_cost: 3.0e-4
+  weight_decay: 3.0e-5
+  cost_grad_clip: 1.0
+  c_clamp: 50.0                # bound per-transition cost (f_clamp spirit)
+  reward_norm: true            # standardize r = -c per batch (AIRL parity)
+  demo_batch: 32               # demo trajectories per IOC update
+  # ---- generator (action-masked PPO; identical to pemirl.yaml) --------------
+  policy_hidden: [256, 256]
+  optimizer_lr_policy: 3.0e-4
+  ppo_clip: 0.2
+  ppo_epochs: 8
+  gae_lambda: 0.95
+  entropy_coef: 0.01
+  value_coef: 0.5
+  mini_batch_size: 1024
+  # ---- outer loop (identical budget to the AIRL arm) ------------------------
+  n_traj: 1000
+  n_sample: 64
+  n_epoch: 500
+  cost_steps_per_iter: 10
+  ckpt_dir: runs/gcl/

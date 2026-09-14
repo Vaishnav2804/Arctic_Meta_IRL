@@ -1,0 +1,24 @@
+base: configs/default.yaml
+
+algo: PPO_BASELINE
+ppo_baseline:
+  # Hand-crafted cost function (prior goal-conditioned navigation setup,
+  # cited in the paper):
+  # r = -(w_dist * step_distance + w_ice * ice_penalty + w_wind * wind_penalty)
+  #     + goal_bonus on reaching the goal
+  w_dist: 1.0
+  w_ice: 2.0
+  w_wind: 0.5
+  goal_bonus: 10.0
+  step_penalty: 0.01
+  hidden: [256, 256]
+  lr: 3.0e-4
+  ppo_clip: 0.2
+  ppo_epochs: 8
+  gae_lambda: 0.95
+  entropy_coef: 0.01
+  value_coef: 0.5
+  mini_batch_size: 1024
+  n_sample: 64
+  n_epoch: 500
+  ckpt_dir: runs/ppo_baseline/

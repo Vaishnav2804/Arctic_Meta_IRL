@@ -1,0 +1,13 @@
+# Pinned to the versions the reported results were produced with (Python 3.12).
+numpy==2.2.4
+scipy==1.15.2
+pandas==2.2.3
+networkx==3.4.2
+torch==2.7.0
+scikit-learn==1.7.0
+pyyaml==6.0.2
+h3==4.2.2
+tqdm==4.67.1
+matplotlib==3.10.9
+tensorboard==2.19.0
+pytest==8.3.5

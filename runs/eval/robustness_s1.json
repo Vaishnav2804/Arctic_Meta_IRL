@@ -1,0 +1,78 @@
+{
+  "test": {
+    "random_support": {
+      "n_vessels": 41,
+      "n_decisions": 61097,
+      "mce_micro": -1.749130168044107,
+      "pemirl_micro": -1.6301343607442447,
+      "mce_macro": -1.9177309435842353,
+      "pemirl_macro": -1.6502799010155842,
+      "pemirl_wins_vessels": 24
+    },
+    "random_support_no_trunc": {
+      "n_vessels": 41,
+      "n_decisions": 55465,
+      "mce_micro": -1.6767932174626987,
+      "pemirl_micro": -1.6251305338303241,
+      "mce_macro": -1.8844420907449169,
+      "pemirl_macro": -1.6485454296911246,
+      "pemirl_wins_vessels": 22
+    },
+    "temporal_support": {
+      "n_vessels": 41,
+      "n_decisions": 63510,
+      "mce_micro": -1.7518084247226782,
+      "pemirl_micro": -1.6299032231575485,
+      "mce_macro": -1.8487511761090258,
+      "pemirl_macro": -1.6064099245972727,
+      "pemirl_wins_vessels": 25
+    },
+    "temporal_support_no_trunc": {
+      "n_vessels": 41,
+      "n_decisions": 57878,
+      "mce_micro": -1.6740407567292348,
+      "pemirl_micro": -1.6254225525786319,
+      "mce_macro": -1.8337369887041906,
+      "pemirl_macro": -1.6044167062770394,
+      "pemirl_wins_vessels": 24
+    }
+  },
+  "temporal_shift": {
+    "random_support": {
+      "n_vessels": 36,
+      "n_decisions": 9480,
+      "mce_micro": -1.6851977020442708,
+      "pemirl_micro": -1.6021312698533263,
+      "mce_macro": -1.7529295781609116,
+      "pemirl_macro": -1.5757705469677112,
+      "pemirl_wins_vessels": 21
+    },
+    "random_support_no_trunc": {
+      "n_vessels": 36,
+      "n_decisions": 9480,
+      "mce_micro": -1.6851977020442708,
+      "pemirl_micro": -1.6021312698533263,
+      "mce_macro": -1.7529295781609116,
+      "pemirl_macro": -1.5757705469677112,
+      "pemirl_wins_vessels": 21
+    },
+    "temporal_support": {
+      "n_vessels": 36,
+      "n_decisions": 9462,
+      "mce_micro": -1.7732846638546516,
+      "pemirl_micro": -1.5963412709982998,
+      "mce_macro": -1.7288846867137808,
+      "pemirl_macro": -1.5300449912617582,
+      "pemirl_wins_vessels": 20
+    },
+    "temporal_support_no_trunc": {
+      "n_vessels": 35,
+      "n_decisions": 8950,
+      "mce_micro": -1.6787582499886884,
+      "pemirl_micro": -1.5966895748117116,
+      "mce_macro": -1.6804056581202258,
+      "pemirl_macro": -1.5283247693814526,
+      "pemirl_wins_vessels": 19
+    }
+  }
+}

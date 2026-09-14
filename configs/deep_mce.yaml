@@ -1,0 +1,20 @@
+# =============================================================================
+# BASELINE: Deep-MCE — deep MaxEnt IRL (Wulfmeier et al. 2015): nonlinear
+# state reward r(s) = MLP(phi(s)) under the SAME exact finite-horizon soft-VI
+# objective, grouping, and evaluation as linear MCE-IRL. Ladder position:
+# isolates reward capacity under exact inference (MCE-IRL -> Deep-MCE changes
+# only linear -> nonlinear; Deep-MCE -> AIRL changes only exact -> adversarial
+# partition estimation). Trains on the FULL train split, like MCE-IRL.
+# =============================================================================
+base: configs/default.yaml
+
+algo: DEEP_MCE
+deep_mce:
+  hidden: [256, 256]          # matches the AIRL discriminator capacity
+  lr: 1.0e-3
+  weight_decay: 1.0e-4
+  grad_clip: 10.0
+  n_iters: 150
+  vi_temperature: 1.0
+  eval_every: 5               # val soft-VI LL every k iters (checkpoint gate)
+  ckpt: runs/deep_mce/reward.pt

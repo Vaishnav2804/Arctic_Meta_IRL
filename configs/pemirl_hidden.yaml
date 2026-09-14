@@ -1,0 +1,43 @@
+# =============================================================================
+# HIDDEN-CONTEXT ABLATION: vessel metadata removed from phi(s).
+#
+# features.use_vessel_static: false drops the 9-dim static block
+# (length, width, aspect + 6-way type one-hot) from the feature vector,
+# so phi(s) = [era5(2), oras5(3), latlon(3), goal_dist(1), goal_bearing(2)]
+# = 11 dims. The posterior can no longer read vessel identity off the
+# observation — z must infer it (if it matters) from behavior alone.
+#
+# Purpose: the falsification arm of the heterogeneity diagnostic. The
+# metadata-redundancy finding (linear R^2(metadata -> z) = 0.63 on the
+# full-info model) admits two readings:
+#   (a) z merely shortcuts to observable statics -> hiding them should let
+#       latent context shine: PEMIRL_hidden > AIRL_hidden;
+#   (b) the heterogeneity is route/ice-driven, not vessel-driven
+#       (route-controlled per-vessel F = 0.23) -> z has nothing hidden to
+#       recover even now: PEMIRL_hidden ~= AIRL_hidden.
+# Pre-registered prediction: (b). Compare against configs/pemirl_noctx_hidden.yaml
+# on the same splits/metrics; hidden-label analysis = R^2(registry metadata -> z).
+#
+# Deployment reading: AIS static metadata is often missing/unreliable at
+# inference time, so the hidden-observation setting is realistic, not contrived.
+#
+# NOTE: needs its own standardizer fit (11-dim):
+#     python scripts/01_build_dataset.py --config configs/pemirl_hidden.yaml
+# writes data/cache/features_hidden.npz; episodes/splits caches are rebuilt
+# byte-identically (deterministic, feature-independent).
+# =============================================================================
+base: configs/pemirl.yaml
+
+algo: PEMIRL_HIDDEN
+
+paths:
+  feature_cache: data/cache/features_hidden.npz
+
+features:
+  use_vessel_static: false
+
+pemirl:
+  ckpt_dir: runs/pemirl_hidden/
+
+reward_transfer:
+  ckpt_dir: runs/ppo_on_hidden/

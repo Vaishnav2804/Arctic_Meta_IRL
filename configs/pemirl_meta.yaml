@@ -1,0 +1,16 @@
+# EXPERIMENT: vessel-metadata prior on the PEMIRL latent context.
+# Everything is identical to configs/pemirl.yaml EXCEPT the context posterior,
+# which gets a dedicated encoder over the static vessel-metadata block (the last
+# meta_dim features of phi: length, width, aspect, 6-way type one-hot),
+# concatenated with the pooled bi-LSTM representation before the mean head.
+# Discriminator, PPO generator, info-max, training, and eval are unchanged.
+base: configs/pemirl.yaml
+
+algo: PEMIRL_META
+pemirl:
+  meta_prior: true
+  meta_dim: 9          # vessel-static block width (verify == fb.vessels.dim)
+  meta_hidden: 32
+  ckpt_dir: runs/pemirl_meta/
+reward_transfer:
+  ckpt_dir: runs/ppo_on_meta/

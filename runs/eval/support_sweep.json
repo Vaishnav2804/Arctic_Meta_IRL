@@ -1,0 +1,18 @@
+{
+  "1": {
+    "ll_per_decision": -1.655318851554613,
+    "n_decisions": 66568
+  },
+  "3": {
+    "ll_per_decision": -1.6547435530733257,
+    "n_decisions": 62127
+  },
+  "5": {
+    "ll_per_decision": -1.6557314208261968,
+    "n_decisions": 59121
+  },
+  "10": {
+    "ll_per_decision": -1.656158525664527,
+    "n_decisions": 52392
+  }
+}

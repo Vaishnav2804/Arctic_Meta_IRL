@@ -1,0 +1,15 @@
+# =============================================================================
+# BASELINE: LSTM sequence model — pi(a_t | phi(s_1..t), a_1..t-1).
+# Modern supervised sequence baseline; teacher-forced next-action prediction.
+# Conditions on the episode's OWN prefix (within-trajectory context), in
+# contrast to PEMIRL's cross-trajectory support-set context z.
+# =============================================================================
+base: configs/bc.yaml
+
+algo: SEQ_LSTM
+bc:
+  arch: lstm
+  seq_hidden: 128
+  seq_layers: 1
+  seq_dropout: 0.1
+  ckpt_dir: runs/seq_lstm/

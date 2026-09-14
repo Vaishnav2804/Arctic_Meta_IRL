@@ -1,0 +1,26 @@
+# =============================================================================
+# Second-region replication: Gulf of St. Lawrence (GSL).
+#
+# Same MDP / feature / split machinery as the Arctic default; only the data
+# paths change, and the (ice/wind) weather features are disabled because we
+# have no GSL environmental caches. Features reduce to geometry + goal-relative
+# terms + vessel statics — enough to run the capacity-vs-context decomposition.
+# Build the inputs first:  python scripts/build_gsl_dataset.py --years 2024
+# =============================================================================
+base: configs/default.yaml
+
+paths:
+  voyages_pkl:      data/gsl/voyages_gsl.pkl
+  vessel_registry:  data/gsl/vessel_registry_gsl.json
+  graph_gexf:       data/gsl/gsl_r6.gexf
+  era5_dir:         data/gsl/era5_h3     # absent -> WeatherStore loads empty
+  oras5_dir:        data/gsl/oras5_h3    # absent -> WeatherStore loads empty
+  workdir:          runs_gsl/
+  mdp_cache:        data/gsl/cache/mdp_r6.npz
+  feature_cache:    data/gsl/cache/features.npz
+  episodes_cache:   data/gsl/cache/episodes.pkl
+  splits_cache:     data/gsl/cache/splits.json
+
+features:
+  era5_vars:  []        # no GSL weather caches; geometry + statics only
+  oras5_vars: []

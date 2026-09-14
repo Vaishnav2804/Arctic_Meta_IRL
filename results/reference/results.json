@@ -1,0 +1,32 @@
+{
+  "test": {
+    "mce_irl_ll_per_decision": -1.755027406504968,
+    "pemirl_ll_per_decision": -1.6547435625752234,
+    "pemirl_vs_mce_likelihood_improvement_pct": 10.548465865664692,
+    "mce_irl_hausdorff_km": 45.63237446580631,
+    "mce_irl_cell_overlap": 0.20679068595385652,
+    "mce_irl_length_ratio": 0.7719401489795856,
+    "mce_irl_reached_goal": 0.0,
+    "mce_irl_fee": 825.5669555664062,
+    "pemirl_hausdorff_km": 246.37257817961353,
+    "pemirl_cell_overlap": 0.06813699278913198,
+    "pemirl_length_ratio": 14.085835801928972,
+    "pemirl_reached_goal": 0.025,
+    "pemirl_fee": 707.993408203125
+  },
+  "temporal_shift": {
+    "mce_irl_ll_per_decision": -1.7830844603616998,
+    "pemirl_ll_per_decision": -1.62478126614207,
+    "pemirl_vs_mce_likelihood_improvement_pct": 17.15213393643136,
+    "mce_irl_hausdorff_km": 69.68890344231775,
+    "mce_irl_cell_overlap": 0.17044540575946515,
+    "mce_irl_length_ratio": 0.8033372356968981,
+    "mce_irl_reached_goal": 0.0,
+    "mce_irl_fee": 831.2463989257812,
+    "pemirl_hausdorff_km": 383.1412104096577,
+    "pemirl_cell_overlap": 0.06468003690419911,
+    "pemirl_length_ratio": 12.265905073419225,
+    "pemirl_reached_goal": 0.02976190476190476,
+    "pemirl_fee": 693.5011596679688
+  }
+}

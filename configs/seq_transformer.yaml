@@ -1,0 +1,14 @@
+# =============================================================================
+# BASELINE: causal-Transformer sequence model — pi(a_t | phi(s_1..t), a_1..t-1).
+# Same protocol as seq_lstm.yaml with a small pre-LN causal Transformer.
+# =============================================================================
+base: configs/bc.yaml
+
+algo: SEQ_TRANSFORMER
+bc:
+  arch: transformer
+  seq_hidden: 128             # d_model
+  seq_layers: 2
+  seq_nhead: 4
+  seq_dropout: 0.1
+  ckpt_dir: runs/seq_transformer/

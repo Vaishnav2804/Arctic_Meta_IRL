@@ -1,0 +1,67 @@
+# =============================================================================
+# Default configuration: data paths, MDP construction, features, splits.
+# Other configs (mce_irl.yaml, pemirl.yaml, ppo_baseline.yaml) inherit from this
+# via the `base` key and override algorithm-specific blocks.
+# =============================================================================
+
+paths:
+  # --- raw inputs (shipped under data/raw/) ----------------------------------
+  voyages_pkl:      data/raw/timestamped_voyages_all.pkl
+  vessel_registry:  data/raw/vessel_registry_unified.json
+  graph_gexf:       data/raw/all_water_arctic_r6.gexf
+  era5_dir:         data/raw/era5_h3
+  oras5_dir:        data/raw/oras5_h3
+  # --- derived artifacts (shipped in data/cache/; rebuilt by scripts/00,01) --
+  workdir:          runs/
+  mdp_cache:        data/cache/mdp_r6.npz
+  feature_cache:    data/cache/features.npz
+  episodes_cache:   data/cache/episodes.pkl
+  splits_cache:     data/cache/splits.json
+
+mdp:
+  h3_resolution: 6
+  allow_stay: true            # add a self-loop "stay" action (action 0)
+  max_actions: 7              # stay + 6 hex neighbors (pentagons have 5)
+  absorbing_goal: true
+  gamma: 0.99
+  max_horizon: 512            # cap on episode length after mapping to cells
+
+features:
+  # time-varying environmental variables, looked up from the weather caches.
+  # Names must match the keys in the columnar pkl files (verified against data):
+  #   era5_h3/*.pkl  -> wind_speed, wave_period
+  #   oras5_h3/*.pkl -> ice_thickness, ice_conc, sst
+  era5_vars:  [wind_speed, wave_period]            # any subset present is used
+  oras5_vars: [ice_thickness, ice_conc, sst]
+  # static / geometric features computed from the graph + episode
+  use_latlon: true
+  use_goal_distance: true      # great-circle distance-to-goal (normalized)
+  use_goal_bearing: true       # cos/sin of bearing alignment toward goal
+  use_vessel_static: true      # length, width, type one-hot (from registry)
+  standardize: true            # z-score features over the training split
+  monthly_aggregate: true      # aggregate weather to (cell, year, month) for the
+                               # tabular MDP; per-timestep lookup in the GCRL env
+
+data:
+  categories: [cargo, tanker]  # paper uses cargo + tanker voyages
+  min_episode_len: 5
+  drop_offgraph_cells: true    # drop voyage steps whose cell is not a graph node
+  interpolate_gaps: true       # bridge 1-cell gaps via shared graph neighbor
+  batch_size: 32               # PyTorch DataLoader (trajectories per batch)
+  num_workers: 2
+
+splits:                        # vessel-level: an MMSI appears in exactly one split
+  by: mmsi
+  train: 0.7
+  val: 0.1
+  test: 0.2
+  temporal_shift_test: true    # additionally hold out the last `shift_months`
+  shift_months: 3              # of data for temporal-generalization eval
+  seed: 0
+
+logging:
+  level: INFO
+  tensorboard: true
+
+seed: 0
+device: auto                   # auto -> cuda if available else cpu

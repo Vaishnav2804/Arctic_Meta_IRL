@@ -1,0 +1,44 @@
+base: configs/default.yaml
+
+algo: PEMIRL
+pemirl:
+  # ---- latent context -------------------------------------------------------
+  context_dim: 8
+  context_limit: 2.0
+  bi_lstm_hidden: 128
+  cnt_sampling_fixed: false      # sample z (false) vs posterior mean (true)
+  # ---- discriminator / reward ----------------------------------------------
+  disc_hidden: [256, 256]
+  state_only: false              # f(s,a,z) vs f(s,z)
+  grad_penalty: 10.0
+  optimizer_lr_discriminator: 3.0e-4
+  weight_decay: 3.0e-5
+  # ---- stability (added after a 500-iter run diverged: disc loss -> 1e11,
+  #      val LL frozen at -1.98, worse than the log(1/6)=-1.79 uniform baseline)
+  f_clamp: 10.0                  # clamp |f| in info-max target + reward
+  disc_grad_clip: 1.0            # grad-norm clip on discriminator + posterior
+  reward_logit: true             # r = f (clamped), not saturating sigmoid(f)
+  reward_norm: true              # standardize the AIRL reward per batch
+  # ---- info-max (Lemma 2) + posterior training ------------------------------
+  info_coeff: 0.01               # was 0.1 — the info-max term drove the blowup;
+                                 # its advantage is now std-normalized too
+  info_training_iters: 2
+  cnt_training_iterations: 2
+  cnt_starting_iter: 10          # was 5 — delay posterior/info coupling a bit
+  context_repeat_num: 4          # rollouts per context for the info-max baseline
+  # ---- generator (action-masked PPO) ----------------------------------------
+  policy_hidden: [256, 256]
+  optimizer_lr_policy: 3.0e-4
+  ppo_clip: 0.2
+  ppo_epochs: 8
+  gae_lambda: 0.95
+  entropy_coef: 0.01
+  value_coef: 0.5
+  mini_batch_size: 1024
+  # ---- outer loop ------------------------------------------------------------
+  n_traj: 1000                   # expert trajectories used (cf. --n_traj 1000)
+  n_sample: 64                   # env rollouts per outer iteration
+  n_epoch: 500                   # outer iterations
+  disc_steps_per_iter: 10
+  support_set_size: 3            # per-vessel support set for test-time z inference
+  ckpt_dir: runs/pemirl/

@@ -1,0 +1,25 @@
+# =============================================================================
+# ABLATION: pooled AIRL — PEMIRL with the latent context stripped.
+#
+# context_dim: 0 makes z zero-width everywhere: the policy ignores it
+# (models/policy.py guards on context_dim), the discriminator concatenates a
+# zero-width tensor, and algos/pemirl.py skips the (vacuous) posterior and
+# info-max updates. What remains is exactly a pooled, context-free AIRL with
+# the same architecture, stability fixes, and training protocol as PEMIRL.
+#
+# Purpose: the control that separates "PEMIRL wins because of per-vessel
+# context" from "PEMIRL wins because of a bigger non-linear reward". Train
+# with the same budget/seeds as configs/pemirl.yaml and compare macro/micro
+# LL on the same splits.
+# =============================================================================
+base: configs/pemirl.yaml
+
+algo: PEMIRL_NOCTX
+pemirl:
+  context_dim: 0
+  ckpt_dir: runs/pemirl_noctx/
+
+# reward-transfer arm for this ablation gets its own output dir so it never
+# clobbers the PEMIRL arm's runs/ppo_on_pemirl artifacts
+reward_transfer:
+  ckpt_dir: runs/ppo_on_noctx/

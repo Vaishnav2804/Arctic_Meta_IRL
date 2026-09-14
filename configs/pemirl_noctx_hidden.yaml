@@ -1,0 +1,20 @@
+# =============================================================================
+# HIDDEN-CONTEXT ABLATION, POOLED CONTROL: AIRL (context_dim=0) on the
+# metadata-free 11-dim phi(s) of configs/pemirl_hidden.yaml.
+#
+# The key comparison of the hidden-context experiment is
+#     PEMIRL_hidden  vs  AIRL_hidden
+# on identical features, splits, budget, and stability recipe. If the latent
+# context carries real per-vessel signal, it must show here — the pooled
+# reward cannot read vessel identity from anywhere.
+# =============================================================================
+base: configs/pemirl_hidden.yaml
+
+algo: PEMIRL_NOCTX_HIDDEN
+
+pemirl:
+  context_dim: 0
+  ckpt_dir: runs/pemirl_noctx_hidden/
+
+reward_transfer:
+  ckpt_dir: runs/ppo_on_noctx_hidden/

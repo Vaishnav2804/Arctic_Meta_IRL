@@ -1,0 +1,25 @@
+# =============================================================================
+# ABLATION: original info-max weight restored (eta = 0.1) WITH the
+# stabilization recipe (f-clamp, per-batch advantage standardization, grad
+# clip, logit reward, delayed posterior) left in place.
+#
+# Purpose: answers the reviewer objection "the stabilization recipe reduced
+# the info-max coefficient 10x (0.1 -> 0.01) and thereby neutered the
+# context; the wash is an artifact of your recipe." Two informative
+# outcomes:
+#   (a) trains stably and the context still adds nothing  -> objection dies;
+#   (b) diverges even with the clamps                     -> the instability
+#       is inherent to the objective at this scale, not our down-weighting.
+# Pre-note (2026-07-20): expectation is (a), since the clamps bound the
+# gradient path that caused the original divergence.
+# =============================================================================
+base: configs/pemirl.yaml
+
+algo: PEMIRL_INFO10
+
+pemirl:
+  info_coeff: 0.1
+  ckpt_dir: runs/pemirl_info10/
+
+reward_transfer:
+  ckpt_dir: runs/ppo_on_info10/

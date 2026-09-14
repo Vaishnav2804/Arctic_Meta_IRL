@@ -1,0 +1,13 @@
+base: configs/gsl.yaml
+
+algo: MCE_IRL
+mce_irl:
+  reward: linear
+  lr: 0.05
+  l2: 1.0e-4
+  n_iters: 200
+  vi_temperature: 1.0
+  vi_tol: 1.0e-5
+  vi_max_sweeps: 400
+  group_by_goal: true
+  ckpt: runs_gsl/mce_irl/theta.npz

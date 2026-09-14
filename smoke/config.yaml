@@ -1,0 +1,45 @@
+# Toy-scale config for the end-to-end smoke pipeline (CPU, minutes).
+# One config drives EVERY step: bash scripts/run_all.sh --config smoke/config.yaml
+# `base` is resolved relative to this file's directory -> repo configs/default.yaml.
+base: ../configs/default.yaml
+paths:
+  voyages_pkl:     smoke/data/voyages.pkl
+  vessel_registry: smoke/data/registry.json
+  graph_gexf:      smoke/data/graph.gexf
+  era5_dir:        smoke/data/era5_h3
+  oras5_dir:       smoke/data/oras5_h3
+  workdir:         smoke/runs/
+  mdp_cache:       smoke/runs/cache/mdp.npz
+  feature_cache:   smoke/runs/cache/features.npz
+  episodes_cache:  smoke/runs/cache/episodes.pkl
+  splits_cache:    smoke/runs/cache/splits.json
+features:
+  era5_vars: [u10, v10, siconc, sithick]
+mdp: {max_horizon: 32, max_actions: 9}
+data: {min_episode_len: 3}
+splits: {shift_months: 1}
+logging: {tensorboard: false}
+mce_irl: {reward: linear, lr: 0.1, l2: 1.0e-4, n_iters: 12, vi_temperature: 1.0,
+          vi_tol: 1.0e-5, vi_max_sweeps: 100, group_by_goal: true,
+          ckpt: smoke/runs/mce_irl/theta.npz}
+pemirl: {context_dim: 4, context_limit: 2.0, bi_lstm_hidden: 32,
+         cnt_sampling_fixed: false, disc_hidden: [64, 64], state_only: false,
+         grad_penalty: 1.0, optimizer_lr_discriminator: 3.0e-4,
+         weight_decay: 3.0e-5,
+         # stability knobs (same mechanism as configs/pemirl.yaml)
+         f_clamp: 10.0, disc_grad_clip: 1.0, reward_logit: true,
+         reward_norm: true,
+         info_coeff: 0.1, info_training_iters: 1,
+         cnt_training_iterations: 1, cnt_starting_iter: 1, context_repeat_num: 2,
+         policy_hidden: [64, 64], optimizer_lr_policy: 3.0e-4, ppo_clip: 0.2,
+         ppo_epochs: 2, gae_lambda: 0.95, entropy_coef: 0.01, value_coef: 0.5,
+         mini_batch_size: 256, n_traj: 40, n_sample: 8, n_epoch: 6,
+         disc_steps_per_iter: 1, support_set_size: 2, ckpt_dir: smoke/runs/pemirl/}
+ppo_baseline: {w_dist: 1.0, w_ice: 2.0, w_wind: 0.5, goal_bonus: 10.0,
+               step_penalty: 0.01, hidden: [64, 64], lr: 3.0e-4, ppo_clip: 0.2,
+               ppo_epochs: 2, gae_lambda: 0.95, entropy_coef: 0.01,
+               value_coef: 0.5, mini_batch_size: 256, n_sample: 8, n_epoch: 6,
+               ckpt_dir: smoke/runs/ppo_baseline/}
+# 08_reward_transfer: fresh PPO trained ONLY on the frozen PEMIRL reward
+reward_transfer: {pem_ckpt: smoke/runs/pemirl/pemirl.pt, n_epoch: 6, n_sample: 8,
+                  ckpt_dir: smoke/runs/ppo_on_pemirl/}

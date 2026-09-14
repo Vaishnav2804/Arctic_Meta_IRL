@@ -1,0 +1,7 @@
+# Per-seed variant of pemirl_noctx_hidden.yaml: pins a seed-suffixed reward-transfer
+# output dir (the base config's explicit ckpt_dir bypasses seeded_dir and
+# seed runs would otherwise clobber each other's transfer summaries).
+base: configs/pemirl_noctx_hidden.yaml
+
+reward_transfer:
+  ckpt_dir: runs/ppo_on_noctx_hidden_s2/

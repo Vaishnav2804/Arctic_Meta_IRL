@@ -1,0 +1,22 @@
+{
+  "test": {
+    "n_episodes_all": 833,
+    "n_episodes_query": 730,
+    "n_decisions_all": 70995,
+    "n_decisions_query": 62127,
+    "mce_irl_ll_all_episodes": -1.755027406504968,
+    "mce_irl_ll_query_only": -1.755481849161968,
+    "pemirl_ll_query_only": -1.6547435625752234,
+    "pemirl_vs_mce_matched_improvement_pct": 10.598715221080468
+  },
+  "temporal_shift": {
+    "n_episodes_all": 168,
+    "n_episodes_query": 91,
+    "n_decisions_all": 17411,
+    "n_decisions_query": 8508,
+    "mce_irl_ll_all_episodes": -1.7830844603616998,
+    "mce_irl_ll_query_only": -1.77113405120831,
+    "pemirl_ll_query_only": -1.62478126614207,
+    "pemirl_vs_mce_matched_improvement_pct": 15.760450160387762
+  }
+}

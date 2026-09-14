@@ -1,0 +1,34 @@
+# =============================================================================
+# BASELINE: GAIL — adversarial imitation (Ho & Ermon 2016), no reward
+# recovery. Protocol/capacity-matched to the AIRL arm (pemirl_noctx.yaml):
+# same discriminator/policy MLPs, PPO hyperparameters, rollout + disc budgets,
+# gradient clipping, and reward standardization. The only changed factor is
+# the generator reward surrogate: -log(1 - D) instead of the AIRL logit f.
+# =============================================================================
+base: configs/default.yaml
+
+algo: GAIL
+gail:
+  # ---- discriminator --------------------------------------------------------
+  disc_hidden: [256, 256]
+  state_only: false
+  grad_penalty: 10.0
+  optimizer_lr_discriminator: 3.0e-4
+  weight_decay: 3.0e-5
+  disc_grad_clip: 1.0
+  reward_norm: true            # standardize -log(1-D) per batch (AIRL parity)
+  # ---- generator (action-masked PPO; identical to pemirl.yaml) --------------
+  policy_hidden: [256, 256]
+  optimizer_lr_policy: 3.0e-4
+  ppo_clip: 0.2
+  ppo_epochs: 8
+  gae_lambda: 0.95
+  entropy_coef: 0.01
+  value_coef: 0.5
+  mini_batch_size: 1024
+  # ---- outer loop (identical budget to the AIRL arm) ------------------------
+  n_traj: 1000
+  n_sample: 64
+  n_epoch: 500
+  disc_steps_per_iter: 10
+  ckpt_dir: runs/gail/

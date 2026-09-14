@@ -1,0 +1,17 @@
+# =============================================================================
+# HIDDEN-CONTEXT ABLATION, LINEAR BASELINE: MCE-IRL on the metadata-free
+# 11-dim phi(s) (see configs/pemirl_hidden.yaml). Vessel statics were
+# constant within an episode anyway (a per-episode reward offset under a
+# linear reward), so this is expected to track full-info MCE closely — a
+# useful sanity anchor for the hidden ladder.
+# =============================================================================
+base: configs/mce_irl.yaml
+
+paths:
+  feature_cache: data/cache/features_hidden.npz
+
+features:
+  use_vessel_static: false
+
+mce_irl:
+  ckpt: runs/mce_hidden/theta.npz

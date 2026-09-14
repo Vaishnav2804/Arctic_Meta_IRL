@@ -1,0 +1,9 @@
+# Smoke run for Deep-MCE: short iteration count + separate ckpt dir so it does
+# not pollute runs/deep_mce/. Validates the pipeline end-to-end (LL rises,
+# val-LL checkpoint gate fires) before committing to the full 150-iter run.
+base: configs/deep_mce.yaml
+
+deep_mce:
+  n_iters: 15
+  eval_every: 5
+  ckpt: runs/deep_mce_smoke/reward.pt

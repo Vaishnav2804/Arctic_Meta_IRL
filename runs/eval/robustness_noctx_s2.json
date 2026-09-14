@@ -1,0 +1,78 @@
+{
+  "test": {
+    "random_support": {
+      "n_vessels": 41,
+      "n_decisions": 62966,
+      "mce_micro": -1.7663284415988878,
+      "pemirl_micro": -1.466260262745496,
+      "mce_macro": -1.796936871854773,
+      "pemirl_macro": -1.38290388044723,
+      "pemirl_wins_vessels": 38
+    },
+    "random_support_no_trunc": {
+      "n_vessels": 40,
+      "n_decisions": 56310,
+      "mce_micro": -1.6733554420189283,
+      "pemirl_micro": -1.4467072850665832,
+      "mce_macro": -1.763692121780571,
+      "pemirl_macro": -1.3702288982745015,
+      "pemirl_wins_vessels": 37
+    },
+    "temporal_support": {
+      "n_vessels": 41,
+      "n_decisions": 63510,
+      "mce_micro": -1.7518084247226782,
+      "pemirl_micro": -1.468433554314043,
+      "mce_macro": -1.8487511761090258,
+      "pemirl_macro": -1.413496712560739,
+      "pemirl_wins_vessels": 32
+    },
+    "temporal_support_no_trunc": {
+      "n_vessels": 41,
+      "n_decisions": 57878,
+      "mce_micro": -1.6740407567292348,
+      "pemirl_micro": -1.4522959816171195,
+      "mce_macro": -1.8337369887041906,
+      "pemirl_macro": -1.4092031551308384,
+      "pemirl_wins_vessels": 32
+    }
+  },
+  "temporal_shift": {
+    "random_support": {
+      "n_vessels": 36,
+      "n_decisions": 8657,
+      "mce_micro": -1.7143861361113648,
+      "pemirl_micro": -1.441586755970905,
+      "mce_macro": -1.9167242154879485,
+      "pemirl_macro": -1.3767855679848537,
+      "pemirl_wins_vessels": 28
+    },
+    "random_support_no_trunc": {
+      "n_vessels": 36,
+      "n_decisions": 8657,
+      "mce_micro": -1.7143861361113648,
+      "pemirl_micro": -1.441586755970905,
+      "mce_macro": -1.9167242154879485,
+      "pemirl_macro": -1.3767855679848537,
+      "pemirl_wins_vessels": 28
+    },
+    "temporal_support": {
+      "n_vessels": 36,
+      "n_decisions": 9462,
+      "mce_micro": -1.7732846638546516,
+      "pemirl_micro": -1.4444094994334735,
+      "mce_macro": -1.7288846867137808,
+      "pemirl_macro": -1.3347627485471745,
+      "pemirl_wins_vessels": 29
+    },
+    "temporal_support_no_trunc": {
+      "n_vessels": 35,
+      "n_decisions": 8950,
+      "mce_micro": -1.6787582499886884,
+      "pemirl_micro": -1.436118995836993,
+      "mce_macro": -1.6804056581202258,
+      "pemirl_macro": -1.3274893588349934,
+      "pemirl_wins_vessels": 28
+    }
+  }
+}

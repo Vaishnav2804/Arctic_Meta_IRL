@@ -1,0 +1,20 @@
+# =============================================================================
+# BASELINE: behavior cloning — supervised pi(a | phi(s)), no reward learned.
+# Same features, action masking, and (256, 256) policy capacity as the
+# AIRL/PEMIRL generator; changes only the training signal (supervised MLE vs
+# adversarial). Uses the FULL train split (like MCE-IRL), not the n_traj=1000
+# subsample of the adversarial arms.
+# =============================================================================
+base: configs/default.yaml
+
+algo: BC
+bc:
+  arch: mlp                   # mlp | lstm | transformer (see seq_*.yaml)
+  hidden: [256, 256]          # MaskedPolicy hidden sizes (mlp arch)
+  lr: 3.0e-4
+  weight_decay: 1.0e-5
+  batch_size: 32              # trajectories per batch
+  epochs: 200
+  patience: 20                # early stop on val LL/decision
+  grad_clip: 1.0
+  ckpt_dir: runs/bc/

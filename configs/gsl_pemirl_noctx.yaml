@@ -1,0 +1,10 @@
+# GSL pooled AIRL (capacity-matched control): PEMIRL with context stripped.
+base: configs/gsl_pemirl.yaml
+
+algo: PEMIRL_NOCTX
+pemirl:
+  context_dim: 0
+  ckpt_dir: runs_gsl/pemirl_noctx/
+
+reward_transfer:
+  ckpt_dir: runs_gsl/ppo_on_noctx/

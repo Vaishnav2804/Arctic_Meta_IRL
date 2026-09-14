@@ -1,0 +1,40 @@
+base: configs/default.yaml
+
+algo: MAML_IRL
+maml_irl:
+  # ---- network architecture (capacity-matched to AIRL/PEMIRL) ----
+  disc_hidden: [256, 256]
+  state_only: false              # f(s,a)
+  grad_penalty: 10.0
+  optimizer_lr_discriminator: 3.0e-4
+  weight_decay: 3.0e-5
+  
+  # ---- MAML meta-learning hyperparameters ----
+  inner_lr: 0.01                 # inner loop adaptation step size (alpha)
+  inner_steps: 1                 # number of inner gradient steps on support set
+  first_order: true              # FOMAML for speed and numerical stability
+  meta_batch_size: 16            # number of vessels per outer meta-batch
+  support_set_size: 3            # K=3 voyages per vessel support set
+  
+  # ---- stability (clamping & norm clipping) ----
+  f_clamp: 10.0
+  disc_grad_clip: 1.0
+  reward_logit: true
+  reward_norm: true
+
+  # ---- generator (action-masked PPO) ----
+  policy_hidden: [256, 256]
+  optimizer_lr_policy: 3.0e-4
+  ppo_clip: 0.2
+  ppo_epochs: 8
+  gae_lambda: 0.95
+  entropy_coef: 0.01
+  value_coef: 0.5
+  mini_batch_size: 1024
+
+  # ---- outer loop ----
+  n_traj: 1000
+  n_sample: 64
+  n_epoch: 500
+  disc_steps_per_iter: 10
+  ckpt_dir: runs/maml_irl/

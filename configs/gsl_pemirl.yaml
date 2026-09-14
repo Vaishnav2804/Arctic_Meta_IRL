@@ -1,0 +1,22 @@
+# GSL full PEMIRL (nonlinear + per-vessel context). Inherits the pemirl
+# hyperparameters + stabilization recipe; only data paths and ckpt_dir change.
+base: configs/pemirl.yaml
+
+paths:
+  voyages_pkl:      data/gsl/voyages_gsl.pkl
+  vessel_registry:  data/gsl/vessel_registry_gsl.json
+  graph_gexf:       data/gsl/gsl_r6.gexf
+  era5_dir:         data/gsl/era5_h3
+  oras5_dir:        data/gsl/oras5_h3
+  workdir:          runs_gsl/
+  mdp_cache:        data/gsl/cache/mdp_r6.npz
+  feature_cache:    data/gsl/cache/features.npz
+  episodes_cache:   data/gsl/cache/episodes.pkl
+  splits_cache:     data/gsl/cache/splits.json
+
+features:
+  era5_vars:  []
+  oras5_vars: []
+
+pemirl:
+  ckpt_dir: runs_gsl/pemirl/
